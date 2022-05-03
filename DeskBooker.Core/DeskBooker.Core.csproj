@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Desk.cs" />
     <Compile Include="DataInterface\IDeskBookingRepository.cs" />
+    <Compile Include="DataInterface\IDeskRepository.cs" />
     <Compile Include="Domain\DeskBooking.cs" />
     <Compile Include="Domain\DeskBookingBase.cs" />
     <Compile Include="Domain\DeskBookingRequest.cs" />
