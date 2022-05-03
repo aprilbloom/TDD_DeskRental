@@ -28,7 +28,7 @@ namespace DeskBooker.Core.Processor
                 Date = new DateTime(2020, 1, 28)
             };
 
-            _avaialbleDesks = new List<Desk> { new Desk() };
+            _avaialbleDesks = new List<Desk> { new Desk { Id = 7 } };
 
             _deskBookingRepositoryMock = new Mock<IDeskBookingRepository>();
             _deskRepositoryMock = new Mock<IDeskRepository>();
@@ -93,6 +93,7 @@ namespace DeskBooker.Core.Processor
             Assert.Equal(_request.LastName, savedDeskBooking.LastName);
             Assert.Equal(_request.Email, savedDeskBooking.Email);
             Assert.Equal(_request.Date, savedDeskBooking.Date);
+            Assert.Equal(_avaialbleDesks.First().Id, savedDeskBooking.DeskId);
         }
 
         [Fact]
