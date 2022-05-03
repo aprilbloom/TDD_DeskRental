@@ -1,4 +1,6 @@
-﻿using DeskBooker.Core.Domain;
+﻿using DeskBooker.Core.DataInterface;
+using DeskBooker.Core.Domain;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,23 @@ namespace DeskBooker.Core.Processor
 {
     public class DeskBookingRequestProcessorTest
     {
+        private readonly DeskBookingRequest _request;
+        private readonly Mock<IDeskBookingRepository> _deskBookingRepositoryMock;
         private readonly DeskBookingRequestProcessor _processor;
 
         public DeskBookingRequestProcessorTest()
         {
-            _processor = new DeskBookingRequestProcessor();
+            _request = new DeskBookingRequest
+            {
+                FirstName = "Leah",
+                LastName = "Leonor",
+                Email = "leah@leahleonor.com",
+                Date = new DateTime(2020, 1, 28)
+            };
+
+            _deskBookingRepositoryMock = new Mock<IDeskBookingRepository>();
+
+            _processor = new DeskBookingRequestProcessor(_deskBookingRepositoryMock.Object);
         }
 
         [Fact]
@@ -46,6 +60,31 @@ namespace DeskBooker.Core.Processor
             var exception = Assert.Throws<ArgumentNullException>(() => _processor.BookDesk(null));
 
             Assert.Equal("request", exception.ParamName);
+        }
+
+        [Fact]
+        public void ShouldSaveDeskBooking()
+        {
+            //Arrange
+            DeskBooking savedDeskBooking = null;
+            _deskBookingRepositoryMock.Setup(x => x.Save(It.IsAny<DeskBooking>()))
+                .Callback<DeskBooking>(deskBooking =>
+                {
+                    savedDeskBooking = deskBooking;
+                });
+
+            //Act
+            _processor.BookDesk(_request);
+
+            //verify is the save method was called once with any desk booking object 
+            _deskBookingRepositoryMock.Verify(x => x.Save(It.IsAny<DeskBooking>()), Times.Once);
+
+            //Asset
+            Assert.NotNull(savedDeskBooking);
+            Assert.Equal(_request.FirstName, savedDeskBooking.FirstName);
+            Assert.Equal(_request.LastName, savedDeskBooking.LastName);
+            Assert.Equal(_request.Email, savedDeskBooking.Email);
+            Assert.Equal(_request.Date, savedDeskBooking.Date);
         }
     }
 }
