@@ -47,6 +47,7 @@
     <Compile Include="Domain\DeskBooking.cs" />
     <Compile Include="Domain\DeskBookingBase.cs" />
     <Compile Include="Domain\DeskBookingRequest.cs" />
+    <Compile Include="Domain\DeskBookingResultCode.cs" />
     <Compile Include="Domain\DesktBookingResult.cs" />
     <Compile Include="Processor\DeskBookingRequestProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
