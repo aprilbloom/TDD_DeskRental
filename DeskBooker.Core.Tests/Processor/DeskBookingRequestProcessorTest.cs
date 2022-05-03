@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeskBooker.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,16 @@ namespace DeskBooker.Core.Processor
             Assert.Equal(request.LastName, result.LastName);
             Assert.Equal(request.Email, result.Email);
             Assert.Equal(request.Date, result.Date);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfRequestIsNull()
+        {
+            var processor = new DeskBookingRequestProcessor();
+
+            var exception = Assert.Throws<ArgumentNullException>(() => processor.BookDesk(null));
+
+            Assert.Equal("request", exception.ParamName);
         }
     }
 }

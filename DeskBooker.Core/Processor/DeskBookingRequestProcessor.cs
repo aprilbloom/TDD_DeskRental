@@ -1,15 +1,20 @@
-﻿using System;
+﻿using DeskBooker.Core.Domain;
+using System;
 
 namespace DeskBooker.Core.Processor
 {
-    internal class DeskBookingRequestProcessor
+    public class DeskBookingRequestProcessor
     {
         public DeskBookingRequestProcessor()
         {
         }
 
-        internal DesktBookingResult BookDesk(DeskBookingRequest request)
+        public DesktBookingResult BookDesk(DeskBookingRequest request)
         {
+            if(request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
             return new DesktBookingResult
             {
                 FirstName = request.FirstName,
