@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DataInterface\IDeskBookingRepository.cs" />
     <Compile Include="Domain\DeskBooking.cs" />
+    <Compile Include="Domain\DeskBookingBase.cs" />
     <Compile Include="Domain\DeskBookingRequest.cs" />
     <Compile Include="Domain\DesktBookingResult.cs" />
     <Compile Include="Processor\DeskBookingRequestProcessor.cs" />
